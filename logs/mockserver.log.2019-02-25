@@ -1,0 +1,4 @@
+2019-02-25 13:41:37.347 [Thread-12] INFO  o.s.c.a.AnnotationConfigApplicationContext: Closing org.springframework.context.annotation.AnnotationConfigApplicationContext@687e99d8: startup date [Tue Jan 22 16:56:29 CST 2019]; root of context hierarchy
+2019-02-25 13:41:38.041 [Thread-12] INFO  o.s.jmx.export.annotation.AnnotationMBeanExporter: Unregistering JMX-exposed beans on shutdown
+2019-02-25 13:41:38.047 [Thread-12] INFO  o.s.jmx.export.annotation.AnnotationMBeanExporter: Unregistering JMX-exposed beans
+2019-02-25 13:41:38.230 [Thread-12] INFO  com.alibaba.druid.pool.DruidDataSource: {dataSource-1} closed

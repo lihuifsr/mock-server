@@ -1,0 +1,147 @@
+apply plugin: 'java'
+apply plugin: 'idea'
+apply plugin: 'maven'
+//apply plugin: 'application'
+//apply plugin: 'executable-jar'
+
+// This is the class that starts your application
+
+//buildscript {
+//    repositories {
+//        mavenCentral()
+//    }
+//    dependencies {
+//        classpath 'net.nisgits.gradle:gradle-executable-jar-plugin:1.7.0'
+//    }
+//}
+
+
+//ext.mainClass = 'App'
+
+//生成的jar包包名和版本
+//jar {
+//    baseName = 'mock-server'
+//    version = '0.0.1'
+//    manifest {  //incubating版本，以后版本可能会改API
+//        attributes("Main-Class": "com.madai.mock.App",
+//                "Implementation-Title": "Gradle")
+//    }
+//    from { configurations.compile.collect { it.isDirectory() ? it : zipTree(it) } }
+//    from { configurations.runtime.collect { it.isDirectory() ? it : zipTree(it) } }
+//    zip64 = true
+//    into('assets') {
+//        from 'assets'
+//    }
+//}
+//applicationName = 'mockssss'  // name of tar, zip and script
+//mainClassName = 'com.madai.mock.App'
+//ext {
+//    jarName = project.name
+//    mainClassName = 'com.madai.mock.App'
+//    finagleVersion = '1.0.0'
+//}
+
+repositories {
+    mavenCentral()
+}
+
+//设置jdk的版本
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+//添加编译时的依赖
+dependencies {
+    compile("org.mock-server:mockserver-maven-plugin:3.10.7")
+    compile("com.fasterxml.jackson.core:jackson-annotations:2.8.8")
+    compile("org.freemarker:freemarker:2.3.26-incubating")
+    compile("dom4j:dom4j:1.6.1")
+    compile group: 'org.springframework', name: 'spring-core', version: '4.1.2.RELEASE'
+    compile("org.apache.httpcomponents:httpclient:4.3.6")
+    compile("javax.servlet:servlet-api:2.5")
+
+    ext.gnete_encryption = files("lib/gnete-bc-139.jar", "lib/gnete-security.jar")
+    compile group: 'com.alibaba', name: 'fastjson', version: '1.2.31'
+    compile gnete_encryption
+}
+
+jar {
+    String someString = ''
+    configurations.runtime.each { someString = someString + " lib//" + it.name }
+    manifest {
+        attributes 'Main-Class': 'com.madai.mock.App'
+        attributes 'Class-Path': someString
+    }
+}
+
+task copyJar(type: Copy) {
+    from configurations.runtime
+    into('build/libs/lib')
+}
+
+task copyScript(type: Copy) {
+    from 'script'
+    into('build/libs')
+}
+
+task zip(type: Zip, dependsOn: [copyJar, copyScript]) {
+    from 'build/libs'
+}
+
+//把JAR复制到目标目录
+task release(type: Copy, dependsOn: [build, zip]) {
+// from 'conf'
+// into ('build/libs/eachend/conf') // 目标位置
+}
+
+//task myTask(type: Copy) {
+//    from('build/libs') {
+//        include '*jar.jar'
+//    }
+////    from('scripts') {
+////        include '*.sh'
+////    }
+//    into ('build/dist')
+//}
+
+//task zipTask(type: Zip) {
+//    destinationDir = file('build/dist')
+//}
+
+//build.finalizedBy(myTask)
+//myTask.finalizedBy(zipTask)
+
+//uploadArchives {
+//    repositories {
+//        mavenDeployer {
+//
+//            repository(url: "http://10.1.5.1:8081/nexus/content/repositories/snapshots/") {
+//                authentication(userName: "admin", password: "2ws3ed4rf")
+//            }
+//
+//            pom.version = "1.0.1-SNAPSHOT"
+//            pom.artifactId = "mockserver"
+//            pom.groupId = "com.madai"
+//
+//            pom.project {
+//                name 'mockserver'
+//                packaging 'jar'
+//                description 'oauth-verification.'
+//
+//                licenses {
+//                    license {
+//                        name 'The Apache Software License, Version 2.0'
+//                        url 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+//                        distribution 'repo'
+//                    }
+//                }
+//
+//                developers {
+//                    developer {
+//                        id 'ming'
+//                        name "ming"
+//                    }
+//                }
+//            }
+//        }
+//    }
+//}

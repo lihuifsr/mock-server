@@ -1,0 +1,46 @@
+[{ "request" : { "uri" : "/he", "params":"11" }, "response" : { "body" : "Hello  World !!! ${req.uri}" } },
+{ "request" : { "uri" : "/mop/router","crypt":"true" }, "response" : { "body": "{'code':'1002','msg':'App ID not exists'}" } },
+{"request" : { "uri" : "/gzdsf/ProcessServlet", "params":"11","type":"xml" }, "response" : { "body" : "<?xml version=\"1.0\" encoding=\"GBK\"?>
+<GZELINK>
+    <INFO>
+        <TRX_CODE>${GZELINK.INFO.TRX_CODE}</TRX_CODE>
+        <VERSION>${GZELINK.INFO.VERSION}</VERSION>
+        <DATA_TYPE>${GZELINK.INFO.DATA_TYPE}</DATA_TYPE>
+        <REQ_SN>${GZELINK.INFO.REQ_SN}</REQ_SN>
+        <RET_CODE>0000</RET_CODE>
+        <ERR_MSG>处理完成</ERR_MSG>
+    </INFO>
+    <BODY>
+        <RET_DETAILS>
+            <#list GZELINK.BODY.TRANS_DETAILS.TRANS_DETAIL as detail>
+                <RET_DETAIL>
+                    <SN>${detail.SN}</SN>
+                    <ACCOUNT_NO>${detail.ACCOUNT_NO}</ACCOUNT_NO>
+                    <ACCOUNT_NAME>peter</ACCOUNT_NAME>
+                    <AMOUNT>${detail.AMOUNT}</AMOUNT>
+                    <CUST_USERID></CUST_USERID>
+                    <REMARK></REMARK>
+                    <RET_CODE>3097</RET_CODE>
+                    <ERR_MSG>ssd</ERR_MSG>
+                </RET_DETAIL>
+            </#list>
+        </RET_DETAILS>
+    </BODY>
+</GZELINK>" ,"sign":"china" } },
+{ "request" : { "uri" : "/cutpayment/api/backTransRequest", "params":"11", "crypt":"baofoo" }, "response" : { "body" : '
+{
+    "additional_info": "", 
+    "biz_type": "0000", 
+    "data_type": "json", 
+    "member_id": "1163869", 
+    "req_reserved": "", 
+    "resp_code": "BF00103", 
+    "resp_msg": "账户余额不足", 
+    "terminal_id": "34606", 
+    "trade_date": "20170613145305", 
+    "trans_id": "ce2f70a55485488eb7eaa4533a570a5c", 
+    "trans_serial_no": "ce2f70a55485488eb7eaa4533a570a5c", 
+    "txn_sub_type": "13", 
+    "txn_type": "0431", 
+    "version": "4.0.0.0"
+}' ,"crypt":"baofoo" }}]
